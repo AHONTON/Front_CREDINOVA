@@ -2,11 +2,11 @@ import React, { useRef } from "react";
 import { Card, Carousel } from "react-bootstrap";
 import { motion, useInView } from "framer-motion";
 import Button from "react-bootstrap/Button";
-import ai1 from "../img/ai1.jpg";
-import ai2 from "../img/ai2.jpg";
-import ai3 from "../img/ai3.jpg";
-import ai4 from "../img/ai4.jpg";
-import ai5 from "../img/ai5.jpg";
+import ai1 from "../../../public/img/ai1.jpg";
+import ai2 from "../../../public/img/ai2.jpg";
+import ai3 from "../../../public/img/ai3.jpg";
+import ai4 from "../../../public/img/ai4.jpg";
+import ai5 from "../../../public/img/ai5.jpg";
 
 const carouselImages = [
   {
@@ -165,7 +165,7 @@ export default function Section3() {
             ))}
           </Carousel>
 
-          <p className="px-2 mt-4 text-justify text-white italic">
+          <p className="px-2 mt-4 italic text-justify text-white">
             Chez CREDINOVA, nous combinons innovation technologique et expertise
             financière pour révolutionner l’octroi de crédit. Grâce à
             l’intelligence artificielle, nous fournissons une analyse précise et
@@ -186,7 +186,7 @@ export default function Section3() {
                 repeatType: "loop",
               }}
             >
-              <Button className="font-bold italic" variant="success">
+              <Button className="italic font-bold" variant="success">
                 Rejoignez le réseau maintenant
               </Button>
             </motion.div>

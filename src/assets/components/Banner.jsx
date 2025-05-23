@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import video from "../video/demoVideo.mp4";
+import video from "../../../public/video/demoVideo.mp4";
 
 export default function Banner() {
   const ref = useRef(null);

@@ -1,8 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-import fn from "../img/fn.png";
-import credi from "../img/credi.jpg";
-import BanqueF from "../img/banqueF.png";
+import fn from "../../../public/img/fn.png";
+import credi from "../../../public/img/credi.jpg";
+import BanqueF from "../../../public/img/banqueF.png";
 
 const sections = [
   {
