@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import logo from "../img/logo.png";
+import logo from "../../../public/logo.png"; 
 
 const tabs = ["Accueil", "À propos", "Services", "Demande", "Contact"];
 
