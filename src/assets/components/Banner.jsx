@@ -6,7 +6,8 @@ export default function Banner() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  const variants = {
+  
+  const variants = { 
     hiddenLeft: { opacity: 0, x: -50 },
     hiddenRight: { opacity: 0, x: 50 },
     visible: { opacity: 1, x: 0 },
