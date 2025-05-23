@@ -1,13 +1,11 @@
 import React, { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import video from "../../../public/video/demoVideo.mp4";
 
 export default function Banner() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
 
-  
-  const variants = { 
+  const variants = {
     hiddenLeft: { opacity: 0, x: -50 },
     hiddenRight: { opacity: 0, x: 50 },
     visible: { opacity: 1, x: 0 },
@@ -26,12 +24,13 @@ export default function Banner() {
         transition={{ duration: 0.8, ease: "easeOut" }}
       >
         <video
-          src={video}
+          src="/video/demoVideo.mp4"
           autoPlay
           muted
           loop
           playsInline
-          className="object-cover w-full rounded-lg h-72 md:h-full"
+          aria-label="Démonstration vidéo de la plateforme CREDINOVA"
+          className="object-cover w-full h-72 rounded-lg md:h-full max-h-[400px]"
         />
       </motion.div>
 
@@ -53,7 +52,7 @@ export default function Banner() {
         </motion.h2>
 
         <motion.h4
-          className="mb-6 text-lg font-bold text-black"
+          className="mb-6 text-lg font-bold text-gray-800"
           initial={{ y: 20, opacity: 0 }}
           animate={isInView ? { y: 0, opacity: 1 } : { y: 20, opacity: 0 }}
           transition={{ delay: 0.7 }}

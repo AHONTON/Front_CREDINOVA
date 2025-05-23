@@ -2,37 +2,32 @@ import React, { useRef } from "react";
 import { Card, Carousel } from "react-bootstrap";
 import { motion, useInView } from "framer-motion";
 import Button from "react-bootstrap/Button";
-import ai1 from "../../../public/img/ai1.jpg";
-import ai2 from "../../../public/img/ai2.jpg";
-import ai3 from "../../../public/img/ai3.jpg";
-import ai4 from "../../../public/img/ai4.jpg";
-import ai5 from "../../../public/img/ai5.jpg";
 
 const carouselImages = [
   {
-    src: ai1,
-    alt: "Image 1",
+    src: "/img/ai1.jpg",
+    alt: "Analyse IA",
     captionTitle: "Analyse Prédictive par IA",
   },
   {
-    src: ai2,
-    alt: "Image 2",
+    src: "/img/ai2.jpg",
+    alt: "Sécurité Données",
     captionTitle: "Sécurité Maximale des Données",
   },
   {
-    src: ai3,
-    alt: "Image 3",
+    src: "/img/ai3.jpg",
+    alt: "Processus Transparent",
     captionTitle: "Processus Rapide et Transparent",
   },
   {
-    src: ai4,
-    alt: "Image 4",
+    src: "/img/ai4.jpg",
+    alt: "IA pour le crédit",
     captionTitle:
       "L’intelligence artificielle au service d’un crédit plus juste et rapide",
   },
   {
-    src: ai5,
-    alt: "Image 5",
+    src: "/img/ai5.jpg",
+    alt: "Data & Crédit",
     captionTitle:
       "Réinventer l’accès au crédit avec la data et l’automatisation",
   },
@@ -111,6 +106,7 @@ export default function Section3() {
       variants={containerVariants}
     >
       <div className="container flex flex-col items-center justify-between gap-8 mx-auto lg:flex-row">
+        {/* Cartes d'information */}
         <motion.div
           className="flex flex-col gap-4 w-full lg:w-[510px]"
           style={{ minWidth: 510 }}
@@ -138,6 +134,7 @@ export default function Section3() {
           ))}
         </motion.div>
 
+        {/* Carrousel + texte + bouton */}
         <motion.div
           className="flex flex-col justify-center w-full lg:w-[510px]"
           style={{ minWidth: 510, minHeight: 300 }}
@@ -172,25 +169,18 @@ export default function Section3() {
             personnalisée, tout en assurant la sécurité et la transparence à
             chaque étape. Que vous soyez particulier ou entreprise, CREDINOVA
             vous accompagne avec rapidité, fiabilité et simplicité, pour des
-            décisions éclairées et un accès au financement optimisé. Rejoignez
-            CREDINOVA et découvrez comment l’IA peut transformer votre
-            expérience financière.
+            décisions éclairées et un accès au financement optimisé.
           </p>
-          <p>
-            <motion.div
-              className="flex justify-center"
-              animate={{ opacity: [1, 0.2, 1] }}
-              transition={{
-                duration: 5,
-                repeat: Infinity,
-                repeatType: "loop",
-              }}
-            >
-              <Button className="italic font-bold" variant="success">
-                Rejoignez le réseau maintenant
-              </Button>
-            </motion.div>
-          </p>
+
+          <motion.div
+            className="flex justify-center mt-4"
+            animate={{ opacity: [1, 0.2, 1] }}
+            transition={{ duration: 5, repeat: Infinity, repeatType: "loop" }}
+          >
+            <Button className="italic font-bold" variant="success">
+              Rejoignez le réseau maintenant
+            </Button>
+          </motion.div>
         </motion.div>
       </div>
     </motion.section>
