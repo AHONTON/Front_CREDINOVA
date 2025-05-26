@@ -170,7 +170,7 @@ export default function Blog() {
                 />
                 <div className="flex flex-col justify-between flex-grow p-4">
                   <div>
-                    <h3 className="mb-2 text-xl font-semibold">
+                    <h3 className="mb-2 text-xl font-semibold text-blue-900">
                       {article.title}
                     </h3>
                     <p className="mb-4 text-sm text-black ">
