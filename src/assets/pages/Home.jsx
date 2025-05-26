@@ -6,6 +6,7 @@ import Section2 from '../components/section2';
 import Section3 from '../components/Section3';
 import Question from '../components/Question';
 import Blog from "../components/Blog";
+import Footer from '../components/Footer';
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <Section3 />
       <Question />
       <Blog />
+      <Footer />
     </>
   );
 }
