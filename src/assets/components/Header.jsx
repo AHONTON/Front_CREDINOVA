@@ -1,51 +1,57 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import logo from "../../../public/logo.png"; 
+import { Link } from "react-router-dom";
+import logo from "../../../public/logo.png";
 
-const tabs = ["Accueil", "À propos", "Services", "Demande", "Contact"];
+const tabs = [
+  { label: "Accueil", path: "/" },
+  { label: "À propos", path: "/about" },
+  { label: "Services", path: "/services" },
+  { label: "Demande", path: "/demande" },
+  { label: "Contact", path: "/contact" },
+];
 
 export default function Header() {
-  const [activeTab, setActiveTab] = useState(tabs[0]);
+  const [activeTab, setActiveTab] = useState(tabs[0].label);
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full bg-blue-900 shadow-md">
-      <div className="px-4 py-3 mx-auto max-w-7xl">
+      <div className="px-3 py-2 mx-auto max-w-7xl">
         <div className="flex items-center justify-between">
-          {/* Logo + Nom avec lien */}
-          <a href="/" className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <img className="w-10 h-10 rounded" src={logo} alt="Logo" />
             <span className="text-xl font-bold text-white">CREDINOVA</span>
-          </a>
+          </Link>
 
-          {/* Desktop Navigation */}
           <nav className="items-center hidden gap-3 md:flex">
-            {tabs.map((tab) => (
-              <li
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className="relative px-2 py-1 font-medium text-white list-none cursor-pointer hover:text-blue-300"
+            {tabs.map(({ label, path }) => (
+              <Link
+                key={label}
+                to={path}
+                onClick={() => setActiveTab(label)}
+                className={`relative px-2 py-1 font-medium text-white hover:text-blue-300 ${
+                  activeTab === label ? "font-bold" : ""
+                }`}
               >
-                {tab}
-                {activeTab === tab && (
+                {label}
+                {activeTab === label && (
                   <motion.div
                     layoutId="underline"
                     className="absolute bottom-0 left-0 right-0 h-0.5 bg-white rounded-full"
                     transition={{ type: "spring", stiffness: 500, damping: 30 }}
                   />
                 )}
-              </li>
+              </Link>
             ))}
 
-            {/* Search input */}
             <input
               type="text"
               placeholder="Rechercher..."
               className="px-2 py-1 text-sm text-black bg-white border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
-            {/* Boutons */}
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -63,7 +69,6 @@ export default function Header() {
             </motion.button>
           </nav>
 
-          {/* Mobile menu icon */}
           <div className="md:hidden">
             <button onClick={() => setIsOpen(true)}>
               <Menu size={28} className="text-white" />
@@ -72,7 +77,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
       <AnimatePresence>
         {isOpen && (
           <>
@@ -98,17 +102,18 @@ export default function Header() {
               </div>
 
               <ul className="flex flex-col gap-4">
-                {tabs.map((tab) => (
-                  <li
-                    key={tab}
+                {tabs.map(({ label, path }) => (
+                  <Link
+                    key={label}
+                    to={path}
                     onClick={() => {
-                      setActiveTab(tab);
+                      setActiveTab(label);
                       setIsOpen(false);
                     }}
                     className="font-medium text-gray-700 transition-colors cursor-pointer hover:text-blue-600"
                   >
-                    {tab}
-                  </li>
+                    {label}
+                  </Link>
                 ))}
 
                 <input

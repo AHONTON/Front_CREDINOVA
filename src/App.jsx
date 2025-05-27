@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import LoadingScreen from "./assets/components/LoadingScreen";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./assets/pages/Home";
+import Demande from "./assets/pages/Demande";
 
 export default function App() {
   const [loading, setLoading] = useState(true);
@@ -19,6 +20,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/demande" element={<Demande />} />
       </Routes>
     </Router>
   );
