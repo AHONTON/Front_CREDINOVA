@@ -88,7 +88,7 @@ export default function Blog() {
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.95 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
-      className="relative w-full px-4 py-8 mx-auto overflow-hidden bg-gray-700 bg-center bg-cover max-w-7xl sm:px-6 md:px-10"
+      className="relative w-full px-4 py-4 mx-auto overflow-hidden bg-gray-700 bg-center bg-cover max-w-7xl sm:px-6 md:px-10"
       style={{
         backgroundImage:
           "url('https://cdn.edi-static.fr/image/upload/c_scale,dpr_auto,f_auto,q_auto,w_auto/c_limit,w_auto/v1/Img/BREVE/2023/10/385582/Comment-elle-modifier-relations-avec-F.jpg')",

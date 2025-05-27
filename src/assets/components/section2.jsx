@@ -1,11 +1,10 @@
-  import { Typography, Button } from "@material-tailwind/react";
+import { Typography, Button } from "@material-tailwind/react";
 import { motion } from "framer-motion";
 
 export default function Section2() {
   return (
     <div className="flex flex-col items-center justify-center p-8">
       <div className="flex flex-col w-full gap-8 md:flex-row max-w-7xl">
-
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -19,14 +18,26 @@ export default function Section2() {
             alt="ia"
             className="object-cover w-full h-48 mb-4 rounded-lg"
           />
-          <Typography variant="h6" color="blue-gray" className="mb-2 text-center">L’intelligence artificielle : catalyseur d’une finance plus inclusive</Typography>
-          <Typography className="mb-4 text-sm text-center">L’IA permet d’évaluer la solvabilité de profils traditionnellement exclus du crédit en exploitant des données alternatives.</Typography>
+          <Typography
+            variant="h6"
+            color="blue-gray"
+            className="mb-2 text-center"
+          >
+            L’intelligence artificielle : catalyseur d’une finance plus
+            inclusive
+          </Typography>
+          <Typography className="mb-4 text-sm text-center">
+            L’IA permet d’évaluer la solvabilité de profils traditionnellement
+            exclus du crédit en exploitant des données alternatives.
+          </Typography>
           <motion.div
             whileHover={{ y: -3, backgroundColor: "#dc2626" }}
             transition={{ type: "spring", stiffness: 300 }}
             className="rounded"
           >
-            <Button className="bg-blue-900" size="sm">Read More</Button>
+            <Button className="bg-blue-900" size="sm">
+              Lire plus
+            </Button>
           </motion.div>
         </motion.div>
 
@@ -43,14 +54,25 @@ export default function Section2() {
             alt="ia gerative"
             className="object-cover w-full h-48 mb-4 rounded-lg"
           />
-          <Typography variant="h6" color="blue-gray" className="mb-2 text-center">Réinventer la gestion des risques financiers grâce à l’IA</Typography>
-          <Typography className="mb-4 text-sm text-center">Les algorithmes prédictifs identifient plus finement les comportements à risque, réduisant ainsi les défauts de paiement.</Typography>
+          <Typography
+            variant="h6"
+            color="blue-gray"
+            className="mb-2 text-center"
+          >
+            Réinventer la gestion des risques financiers grâce à l’IA
+          </Typography>
+          <Typography className="mb-4 text-sm text-center">
+            Les algorithmes prédictifs identifient plus finement les
+            comportements à risque, réduisant ainsi les défauts de paiement.
+          </Typography>
           <motion.div
             whileHover={{ y: -3, backgroundColor: "#dc2626" }}
             transition={{ type: "spring", stiffness: 300 }}
             className="rounded"
           >
-            <Button className="bg-blue-900" size="sm">Read More</Button>
+            <Button className="bg-blue-900" size="sm">
+              Lire plus
+            </Button>
           </motion.div>
         </motion.div>
 
@@ -67,18 +89,27 @@ export default function Section2() {
             alt="Analytics"
             className="object-cover w-full h-48 mb-4 rounded-lg"
           />
-          <Typography variant="h6" color="blue-gray" className="mb-2 text-center">Vers une finance autonome : quand l’IA prend les commandes</Typography>
-          <Typography className="mb-4 text-sm text-center">L'automatisation des processus décisionnels transforme la vitesse et la précision des services financiers.
+          <Typography
+            variant="h6"
+            color="blue-gray"
+            className="mb-2 text-center"
+          >
+            Vers une finance autonome : quand l’IA prend les commandes
+          </Typography>
+          <Typography className="mb-4 text-sm text-center">
+            L'automatisation des processus décisionnels transforme la vitesse et
+            la précision des services financiers.
           </Typography>
           <motion.div
             whileHover={{ y: -3, backgroundColor: "#dc2626" }}
             transition={{ type: "spring", stiffness: 300 }}
             className="rounded"
           >
-            <Button className="bg-blue-900" size="sm">Read More</Button>
+            <Button className="bg-blue-900" size="sm">
+              Lire plus
+            </Button>
           </motion.div>
         </motion.div>
-
       </div>
     </div>
   );

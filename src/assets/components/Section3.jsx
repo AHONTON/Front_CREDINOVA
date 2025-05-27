@@ -99,17 +99,15 @@ export default function Section3() {
 
   return (
     <motion.section
-      className="px-3 py-3 bg-blue-900"
+      className="px-4 py-6 bg-blue-900"
       ref={ref}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       variants={containerVariants}
     >
-      <div className="container flex flex-col items-center justify-between gap-8 mx-auto lg:flex-row">
-        {/* Cartes d'information */}
+      <div className="container flex flex-col gap-8 mx-auto lg:flex-row lg:items-start">
         <motion.div
-          className="flex flex-col gap-4 w-full lg:w-[510px]"
-          style={{ minWidth: 510 }}
+          className="flex flex-col w-full max-w-xl gap-4"
           variants={containerVariants}
         >
           {cardsContent.map(({ title, text, details }, index) => (
@@ -125,7 +123,7 @@ export default function Section3() {
                     {title}
                   </Card.Title>
                   <Card.Text>{text}</Card.Text>
-                  <Card.Text className="font-bold text-blue-900 text-1xl">
+                  <Card.Text className="text-base font-bold text-blue-900">
                     {details}
                   </Card.Text>
                 </Card.Body>
@@ -134,10 +132,8 @@ export default function Section3() {
           ))}
         </motion.div>
 
-        {/* Carrousel + texte + bouton */}
         <motion.div
-          className="flex flex-col justify-center w-full lg:w-[510px]"
-          style={{ minWidth: 510, minHeight: 300 }}
+          className="flex flex-col justify-center w-full max-w-xl"
           variants={carouselVariants}
         >
           <Carousel
@@ -152,8 +148,7 @@ export default function Section3() {
                 <img
                   src={src}
                   alt={alt}
-                  className="rounded shadow"
-                  style={{ width: "100%", height: "300px", objectFit: "cover" }}
+                  className="rounded shadow w-full h-[220px] sm:h-[300px] object-cover"
                 />
                 <Carousel.Caption className="p-3 bg-black bg-opacity-50 rounded">
                   <h5>{captionTitle}</h5>
@@ -162,7 +157,7 @@ export default function Section3() {
             ))}
           </Carousel>
 
-          <p className="px-2 mt-4 italic text-justify text-white">
+          <p className="px-2 mt-4 text-sm italic text-justify text-white sm:text-base">
             Chez CREDINOVA, nous combinons innovation technologique et expertise
             financière pour révolutionner l’octroi de crédit. Grâce à
             l’intelligence artificielle, nous fournissons une analyse précise et
