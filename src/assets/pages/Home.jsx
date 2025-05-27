@@ -10,7 +10,7 @@ import Footer from '../components/Footer';
 
 export default function Home() {
   return (
-    <main className="min-h-screen px-4 py-8 bg-gray-500">
+    <main className="min-h-screen px-4 py-8 bg-gray-400">
       <Header />
       <Banner />
       <Section />
