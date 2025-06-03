@@ -1,13 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { ArrowRightIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import { motion } from "framer-motion";
+import DemandePretModal from "../components/DemandePretModal";
+import { useAuth } from "../components/AuthUser";
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
+import { Link } from "react-router-dom";
 
 export default function DemandeSection1() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { isAuthenticated, user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleDemandeClick = () => {
+    if (!isAuthenticated) {
+      Swal.fire({
+        icon: "info",
+        title: "Oups🤦‍♂️ connexion requise",
+        text: "Vous devez d'abord être connecté pour procéder à une demande de prêt.",
+        confirmButtonText: "OK",
+      }).then(() => {
+        navigate("/connexion");
+      });
+    } else {
+      setIsModalOpen(true);
+    }
+  };
+
   return (
     <div className="relative z-50 flex items-center justify-center px-4 overflow-hidden bg-white sm:px-6 lg:px-8">
       <div className="relative w-full py-12 mx-auto max-w-7xl">
         <div className="flex flex-col items-center justify-between gap-12 lg:flex-row">
-
           <motion.div
             className="w-full lg:max-w-xl"
             initial={{ opacity: 0, y: 40 }}
@@ -24,16 +48,18 @@ export default function DemandeSection1() {
               </span>
             </h2>
             <p className="max-w-lg text-base italic font-bold text-black">
-              Optez dès maintenant pour un prêt rapide et sécurisé sur note
+              Optez dès maintenant pour un prêt rapide et sécurisé sur notre
               plateforme sans pour autant vous déplacer.
             </p>
+
             <div className="flex flex-col items-center gap-4 mt-10 md:flex-row">
-              <a
-                href="/"
+              <button
+                onClick={handleDemandeClick}
                 className="inline-flex items-center justify-center w-full px-6 py-3 font-medium text-white transition bg-blue-900 rounded shadow-md hover:bg-blue-800 focus:outline-none md:w-auto"
               >
                 Faites votre demande ici
-              </a>
+              </button>
+
               <a
                 href="/"
                 className="inline-flex items-center font-bold text-blue-900 group text-g1"
@@ -54,14 +80,19 @@ export default function DemandeSection1() {
             <div className="overflow-hidden rounded-[6rem] rounded-br-none rounded-tl-none shadow-lg shadow-green-300 max-w-sm sm:max-w-md md:max-w-lg w-full">
               <img
                 src="https://www.parent-solo.fr/images/dossiers/2019-01/pret-bancaire-180831.jpg"
-                alt="Reservation Card"
+                alt="Demande de prêt"
                 className="object-cover w-full h-full"
               />
             </div>
           </motion.div>
-
         </div>
       </div>
+
+      <DemandePretModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        userId={user?._id || ""}
+      />
     </div>
   );
 }

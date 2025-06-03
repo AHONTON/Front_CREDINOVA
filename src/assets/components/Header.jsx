@@ -313,7 +313,7 @@ export default function Header() {
                   <X size={24} />
                 </button>
 
-                {isSignup ? <Inscription /> : <Connexion onClose={() => setShowModal(false)} />}
+                {isSignup ? (<Inscription onClose={() => setShowModal(false)} />) : (<Connexion onClose={() => setShowModal(false)} />)}
 
                 <Typography color="gray" className="mt-4 text-sm text-center">
                   {isSignup ? (

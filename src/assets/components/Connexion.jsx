@@ -1,23 +1,28 @@
 import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import { useAuth } from "../components/AuthUser";
 
 export default function Connexion() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/users/login",
+        {
+          email,
+          password,
+        }
+      );
 
       if (response.data.success) {
         Swal.fire({
@@ -28,8 +33,9 @@ export default function Connexion() {
           showConfirmButton: false,
         });
 
-        localStorage.setItem("token", response.data.token);
-        navigate("/dashboard"); // Redirection après connexion
+        login(response.data.token, response.data.user);
+
+        navigate("/dashboard");
       } else {
         Swal.fire({
           icon: "error",
@@ -51,20 +57,20 @@ export default function Connexion() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen px-4 bg-gray-100">
+    <div className="flex items-center justify-center min-h-screen px-4 bg-black">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md px-8 py-10 bg-white border border-gray-200 shadow-md rounded-2xl"
+        className="w-full max-w-md px-8 py-10 bg-white border border-black shadow-md rounded-2xl"
       >
-        <h1 className="text-3xl font-semibold text-center text-gray-900">
+        <h1 className="text-3xl font-semibold text-center text-black">
           Connexion
         </h1>
-        <p className="mt-2 text-sm text-center text-gray-500">
+        <p className="mt-2 text-sm text-center text-black">
           Connectez-vous pour continuer
         </p>
 
         <div className="mt-8 space-y-4">
-          <div className="flex items-center h-12 gap-2 px-4 bg-white border border-gray-300 rounded-full">
+          <div className="flex items-center h-12 gap-2 px-4 bg-white border border-black rounded-full">
             <svg
               width="16"
               height="11"
@@ -83,7 +89,7 @@ export default function Connexion() {
               type="email"
               aria-label="Adresse email"
               placeholder="Adresse email"
-              className="w-full text-sm text-gray-700 placeholder-gray-400 bg-transparent outline-none"
+              className="w-full text-sm text-black placeholder-black bg-transparent outline-none"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -91,7 +97,7 @@ export default function Connexion() {
             />
           </div>
 
-          <div className="flex items-center h-12 gap-2 px-4 bg-white border border-gray-300 rounded-full">
+          <div className="flex items-center h-12 gap-2 px-4 bg-white border border-black rounded-full">
             <svg
               width="13"
               height="17"
@@ -108,7 +114,7 @@ export default function Connexion() {
               type="password"
               aria-label="Mot de passe"
               placeholder="Mot de passe"
-              className="w-full text-sm text-gray-700 placeholder-gray-400 bg-transparent outline-none"
+              className="w-full text-sm text-black placeholder-black bg-transparent outline-none"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -118,7 +124,7 @@ export default function Connexion() {
         </div>
 
         <div className="mt-4 text-sm text-right">
-          <a className="text-indigo-500 hover:underline" href="#">
+          <a className="font-bold text-blue-900 hover:underline" href="#">
             Mot de passe oublié ?
           </a>
         </div>
@@ -126,16 +132,19 @@ export default function Connexion() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full mt-6 font-medium text-white transition-opacity bg-indigo-500 rounded-full h-11 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="w-full mt-6 font-medium text-white transition-opacity bg-blue-900 rounded-full h-11 hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? "Connexion..." : "Se connecter"}
         </button>
 
-        <p className="mt-6 text-sm text-center text-gray-500">
+        <p className="mt-6 text-sm text-center text-black">
           Vous n'avez pas de compte ?{" "}
-          <a className="text-indigo-500 hover:underline" href="/inscription">
+          <Link
+            className="font-bold text-blue-900 hover:underline"
+            to="/inscription"
+          >
             Créer un compte
-          </a>
+          </Link>
         </p>
       </form>
     </div>
