@@ -3,6 +3,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { useNavigate, Link } from "react-router-dom";
 import { useAuth } from "../components/AuthUser";
+import { motion } from "framer-motion";
 
 export default function Connexion() {
   const [email, setEmail] = useState("");
@@ -16,40 +17,62 @@ export default function Connexion() {
     setLoading(true);
 
     try {
-      const response = await axios.post(
-        "http://localhost:5000/api/users/login",
-        {
-          email,
-          password,
-        }
-      );
+      const response = await axios.post("http://localhost:5000/api/user/login", {
+        email,
+        motDePasse: password,
+      });
 
-      if (response.data.success) {
+      if (response.data.token && response.data.user) {
         Swal.fire({
           icon: "success",
           title: "Connexion réussie",
           text: response.data.message || "Bienvenue !",
-          timer: 2000,
-          showConfirmButton: false,
+          background: "#1e3a8a",
+          iconColor: "#fff",
+          color: "#fff",
+          confirmButtonText: "Continuer",
+          customClass: {
+            title: "text-white text-lg font-semibold",
+            popup: "rounded-xl px-6 py-4",
+            confirmButton: "bg-white text-blue-900 font-bold px-4 py-2 rounded-full hover:bg-gray-200",
+            htmlContainer: "text-white text-sm mt-2",
+          },
         });
 
         login(response.data.token, response.data.user);
-
-        navigate("/dashboard");
+        navigate("/user_dashboard");
       } else {
         Swal.fire({
           icon: "error",
           title: "Erreur",
-          text: response.data.message || "Identifiants invalides",
+          text: "Identifiants invalides",
+          background: "#1e3a8a",
+          iconColor: "#fff",
+          color: "#fff",
+          confirmButtonText: "Réessayer",
+          customClass: {
+            title: "text-white text-lg font-semibold",
+            popup: "rounded-xl px-6 py-4",
+            confirmButton: "bg-white text-blue-900 font-bold px-4 py-2 rounded-full hover:bg-gray-200",
+            htmlContainer: "text-white text-sm mt-2",
+          },
         });
       }
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Erreur",
-        text:
-          error.response?.data?.message ||
-          "Une erreur est survenue, réessayez plus tard.",
+        text: error.response?.data?.message || "Une erreur est survenue, réessayez plus tard.",
+        background: "#1e3a8a",
+        iconColor: "#fff",
+        color: "#fff",
+        confirmButtonText: "Fermer",
+        customClass: {
+          title: "text-white text-lg font-semibold",
+          popup: "rounded-xl px-6 py-5",
+          confirmButton: "bg-white text-blue-900 font-bold px-4 py-2 rounded-full hover:bg-gray-200",
+          htmlContainer: "text-white text-sm mt-2",
+        },
       });
     } finally {
       setLoading(false);
@@ -58,36 +81,20 @@ export default function Connexion() {
 
   return (
     <div className="flex items-center justify-center min-h-screen px-4 bg-black">
-      <form
+      <motion.form
         onSubmit={handleSubmit}
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
         className="w-full max-w-md px-8 py-10 bg-white border border-black shadow-md rounded-2xl"
       >
-        <h1 className="text-3xl font-semibold text-center text-black">
-          Connexion
-        </h1>
-        <p className="mt-2 text-sm text-center text-black">
-          Connectez-vous pour continuer
-        </p>
+        <h1 className="text-3xl font-semibold text-center text-black">Connexion</h1>
+        <p className="mt-2 text-sm text-center text-black">Connectez-vous pour continuer</p>
 
         <div className="mt-8 space-y-4">
           <div className="flex items-center h-12 gap-2 px-4 bg-white border border-black rounded-full">
-            <svg
-              width="16"
-              height="11"
-              viewBox="0 0 16 11"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                fillRule="evenodd"
-                clipRule="evenodd"
-                d="M0 .55.571 0H15.43l.57.55v9.9l-.571.55H.57L0 10.45zm1.143 1.138V9.9h13.714V1.69l-6.503 4.8h-.697zM13.749 1.1H2.25L8 5.356z"
-                fill="#6B7280"
-              />
-            </svg>
             <input
               type="email"
-              aria-label="Adresse email"
               placeholder="Adresse email"
               className="w-full text-sm text-black placeholder-black bg-transparent outline-none"
               required
@@ -98,21 +105,8 @@ export default function Connexion() {
           </div>
 
           <div className="flex items-center h-12 gap-2 px-4 bg-white border border-black rounded-full">
-            <svg
-              width="13"
-              height="17"
-              viewBox="0 0 13 17"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M13 8.5c0-.938-.729-1.7-1.625-1.7h-.812V4.25C10.563 1.907 8.74 0 6.5 0S2.438 1.907 2.438 4.25V6.8h-.813C.729 6.8 0 7.562 0 8.5v6.8c0 .938.729 1.7 1.625 1.7h9.75c.896 0 1.625-.762 1.625-1.7zM4.063 4.25c0-1.406 1.093-2.55 2.437-2.55s2.438 1.144 2.438 2.55V6.8H4.061z"
-                fill="#6B7280"
-              />
-            </svg>
             <input
               type="password"
-              aria-label="Mot de passe"
               placeholder="Mot de passe"
               className="w-full text-sm text-black placeholder-black bg-transparent outline-none"
               required
@@ -139,14 +133,11 @@ export default function Connexion() {
 
         <p className="mt-6 text-sm text-center text-black">
           Vous n'avez pas de compte ?{" "}
-          <Link
-            className="font-bold text-blue-900 hover:underline"
-            to="/inscription"
-          >
+          <Link className="font-bold text-blue-900 hover:underline" to="/inscription">
             Créer un compte
           </Link>
         </p>
-      </form>
+      </motion.form>
     </div>
   );
 }

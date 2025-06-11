@@ -5,6 +5,8 @@ import Home from "./assets/pages/Home";
 import Demande from "./assets/pages/Demande";
 import Connexion from './assets/components/Connexion';
 import Inscription from './assets/components/Inscription';
+import { Dashboard } from "iconoir-react";
+import User_Dashboard from "./assets/pages/user_dashboard/Dashboard";
 
 
 export default function App() {
@@ -26,6 +28,7 @@ export default function App() {
         <Route path="/demande" element={<Demande />} />
         <Route path="/connexion" element={<Connexion />} />
         <Route path="/inscription" element={<Inscription />} />
+        <Route path="/user_dashboard" element={<User_Dashboard />} />
       </Routes>
     </Router>
   );

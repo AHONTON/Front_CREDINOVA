@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
+import Swal from "sweetalert2";
 import {
   FaGoogle,
   FaFacebookF,
@@ -9,9 +10,11 @@ import {
   FaLinkedinIn,
   FaTimes,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function Inscription({ onClose }) {
   const modalRef = useRef();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -22,12 +25,50 @@ export default function Inscription({ onClose }) {
   const motDePasse = watch("motDePasse", "");
 
   const onSubmit = async (data) => {
+    const { confirmPassword, ...userData } = data;
     try {
-      const response = await axios.post("http://localhost:5000/api/user/register", data);
-      console.log("Inscription réussie :", response.data);
-      onClose();
+      const response = await axios.post(
+        "http://localhost:5000/api/user/register",
+        userData
+      );
+
+      if (response.status >= 200 && response.status < 300) {
+        await Swal.fire({
+          icon: "success",
+          title: "Inscription réussie",
+          text: "Cliquez sur OK pour continuer.",
+          showConfirmButton: true,
+          background: "#1e3a8a",
+          color: "#fff",
+          customClass: {
+            icon: "text-white",
+            title: "text-white text-xl font-bold",
+            htmlContainer: "text-white text-sm",
+            popup: "rounded-xl shadow-lg",
+          },
+        });
+        onClose();
+        navigate("/connexion");
+      }
     } catch (error) {
-      console.error("Erreur d'inscription :", error.response?.data || error.message);
+      Swal.fire({
+        icon: "error",
+        title: "Erreur",
+        text:
+          error.response?.data?.message ||
+          "Une erreur est survenue, veuillez réessayer.",
+        background: "#1e3a8a",
+        color: "#fff",
+        showConfirmButton: true,
+        confirmButtonColor: "#dc2626",
+        customClass: {
+          icon: "text-white",
+          title: "text-white text-xl font-bold",
+          htmlContainer: "text-white text-sm",
+          popup: "rounded-xl shadow-lg",
+          confirmButton: "text-white font-semibold",
+        },
+      });
     }
   };
 
@@ -51,7 +92,6 @@ export default function Inscription({ onClose }) {
           exit={{ opacity: 0, y: -50 }}
           className="relative w-full max-w-7xl mx-4 bg-white p-6 sm:p-8 rounded-xl shadow-lg overflow-y-auto max-h-[90vh]"
         >
-          {/* Bouton de fermeture */}
           <button
             onClick={onClose}
             className="absolute text-blue-900 top-4 right-4 hover:text-red-600 focus:outline-none"
@@ -59,7 +99,9 @@ export default function Inscription({ onClose }) {
             <FaTimes size={22} />
           </button>
 
-          <h2 className="mb-6 text-2xl font-bold text-center text-blue-900">Créer un compte</h2>
+          <h2 className="mb-6 text-2xl font-bold text-center text-blue-900">
+            Créer un compte
+          </h2>
 
           <form
             onSubmit={handleSubmit(onSubmit)}
@@ -119,9 +161,12 @@ export default function Inscription({ onClose }) {
                           : undefined,
                       valueAsNumber: field.type === "number",
                     })}
-                    placeholder={field.name
-                      .replace(/([A-Z])/g, " $1")
-                      .replace(/^./, (c) => c.toUpperCase()) + (field.required ? " *" : "")}
+                    placeholder={
+                      field.name
+                        .replace(/([A-Z])/g, " $1")
+                        .replace(/^./, (c) => c.toUpperCase()) +
+                      (field.required ? " *" : "")
+                    }
                     type={field.type || "text"}
                     className="w-full px-4 py-2 font-bold placeholder-black border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-900"
                   />
@@ -146,12 +191,22 @@ export default function Inscription({ onClose }) {
               </motion.button>
 
               <div className="flex flex-wrap items-center justify-center gap-3">
-                <span className="text-sm font-medium text-black font-borld">ou avec</span>
+                <span className="text-sm font-medium text-black font-borld">
+                  ou avec
+                </span>
                 {[
                   { icon: <FaGoogle />, bg: "bg-red-600", label: "Google" },
-                  { icon: <FaFacebookF />, bg: "bg-blue-900", label: "Facebook" },
+                  {
+                    icon: <FaFacebookF />,
+                    bg: "bg-blue-900",
+                    label: "Facebook",
+                  },
                   { icon: <FaTwitter />, bg: "bg-blue-900", label: "Twitter" },
-                  { icon: <FaLinkedinIn />, bg: "bg-blue-900", label: "LinkedIn" },
+                  {
+                    icon: <FaLinkedinIn />,
+                    bg: "bg-blue-900",
+                    label: "LinkedIn",
+                  },
                 ].map((btn, idx) => (
                   <button
                     key={idx}
