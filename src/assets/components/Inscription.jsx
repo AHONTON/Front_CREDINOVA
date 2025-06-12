@@ -35,7 +35,7 @@ export default function Inscription({ onClose }) {
       if (response.status >= 200 && response.status < 300) {
         await Swal.fire({
           icon: "success",
-          title: "Inscription réussie",
+          title: "Inscription réussie. Vérifier votre email pour activer votre compte.",
           text: "Cliquez sur OK pour continuer.",
           showConfirmButton: true,
           background: "#1e3a8a",

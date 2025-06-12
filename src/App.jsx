@@ -5,6 +5,7 @@ import Home from "./assets/pages/Home";
 import Demande from "./assets/pages/Demande";
 import Connexion from './assets/components/Connexion';
 import Inscription from './assets/components/Inscription';
+import AccountActivation from "./assets/components/AccountActivation";
 import { Dashboard } from "iconoir-react";
 import User_Dashboard from "./assets/pages/user_dashboard/Dashboard";
 
@@ -29,6 +30,7 @@ export default function App() {
         <Route path="/connexion" element={<Connexion />} />
         <Route path="/inscription" element={<Inscription />} />
         <Route path="/user_dashboard" element={<User_Dashboard />} />
+        <Route path="/activate-account/:token" element={<AccountActivation />} />
       </Routes>
     </Router>
   );
