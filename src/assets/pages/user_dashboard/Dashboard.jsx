@@ -1,72 +1,76 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from "react";
+import { useAuth } from "../../components/AuthUser"; // ✅ chemin correct
 
-import Header from './Header'
-import Navbar from './Navbar'
-import UserCard from './UserCard'
-import SidebarInfo from './SidebarInfo'
-import TabMenu from './TabMenu'
-import TabContent from './TabContent'
-import AttachmentsList from './AttachmentsList'
-import SettingsModal from './SettingsModal'
+import Header from "./Header";
+import Navbar from "./Navbar";
+import UserCard from "./UserCard";
+import SidebarInfo from "./SidebarInfo";
+import TabMenu from "./TabMenu";
+import TabContent from "./TabContent";
+import AttachmentsList from "./AttachmentsList";
+import SettingsModal from "./SettingsModal";
 
 const Dashboard = () => {
-  // Données mock
-  const userMock = {
-    id: '123',
-    name: 'Enock Mbanda',
-    profession: 'Développeur Full-Stack et Data Analyst',
-    scoreIA: 87,
-    statutDemande: 'Accepté',
-    email: 'enock@example.com',
-    creditHistory: [
-      { id: 1, date: '2024-01-15', montant: 1000, status: 'Terminé' },
-      { id: 2, date: '2024-03-20', montant: 500, status: 'En cours' },
-    ],
-    attachments: [
-      { id: 'a1', nom: 'Contrat.pdf' },
-      { id: 'a2', nom: 'Relevé bancaire.pdf' },
-    ],
-  }
+  const { user } = useAuth(); // ✅ utilisateur du context
+  const [activeTab, setActiveTab] = useState("Infos");
+  const [settingsOpen, setSettingsOpen] = useState(false);
+  const [editData, setEditData] = useState(null);
 
-  const [user, setUser] = useState(userMock)
-  const [activeTab, setActiveTab] = useState('Infos')
-  const tabs = ['Infos', 'Historiques Credit', 'Documents']
+  useEffect(() => {
+    if (user) {
+      setEditData(user);
+    }
+  }, [user]);
 
-  const [settingsOpen, setSettingsOpen] = useState(false)
-  const [editData, setEditData] = useState(userMock)
+  const tabs = ["Infos", "Historiques Credit", "Documents"];
+
+  if (!user)
+    return <p className="p-6 text-red-600">Utilisateur non connecté</p>;
 
   const handleSave = () => {
-    // Ici on peut juste fermer la modal pour tester
-    setSettingsOpen(false)
-    // Optionnel: simuler update user
-    setUser(editData)
-  }
+    setSettingsOpen(false);
+    // Optionnel : tu peux faire un setUser(editData) si le contexte le permet
+  };
 
   return (
     <>
-      <Header />
+      <Header user={user} />
       <Navbar />
 
-      <main className="grid grid-cols-1 gap-6 p-6 mx-auto max-w-7xl md:grid-cols-4">
-        <div className="space-y-6 md:col-span-3">
+      <main className="grid grid-cols-1 gap-6 p-4 mx-auto max-w-7xl lg:grid-cols-12">
+        <section className="col-span-12 space-y-6 lg:col-span-9">
           <UserCard user={user} onSettingsClick={() => setSettingsOpen(true)} />
 
-          <TabMenu tabs={tabs} activeTab={activeTab} onChange={setActiveTab} />
+          <div className="p-4 bg-white shadow-xl rounded-xl">
+            <TabMenu
+              tabs={tabs}
+              activeTab={activeTab}
+              onChange={setActiveTab}
+            />
 
-          <TabContent
-            activeTab={activeTab}
-            tabData={
-              activeTab === 'Infos' ? user :
-              activeTab === 'Credit History' ? user.creditHistory :
-              activeTab === 'Documents' ? user.attachments :
-              {}
-            }
-          />
+            <div className="mt-4">
+              <TabContent
+                activeTab={activeTab}
+                tabData={
+                  activeTab === "Infos"
+                    ? user
+                    : activeTab === "Historiques Credit"
+                    ? user.creditHistory || []
+                    : activeTab === "Documents"
+                    ? user.attachments || []
+                    : {}
+                }
+              />
+              {activeTab === "Documents" && (
+                <AttachmentsList attachments={user.attachments || []} />
+              )}
+            </div>
+          </div>
+        </section>
 
-          {activeTab === 'Documents' && <AttachmentsList attachments={user.attachments} />}
-        </div>
-
-        <SidebarInfo user={user} />
+        <aside className="col-span-12 lg:col-span-3">
+          <SidebarInfo user={user} />
+        </aside>
       </main>
 
       {settingsOpen && (
@@ -78,7 +82,7 @@ const Dashboard = () => {
         />
       )}
     </>
-  )
-}
+  );
+};
 
-export default Dashboard
+export default Dashboard;

@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const res = await axios.get("/api/auth/me", {
+      const res = await axios.get("localhost/api/auth/", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -46,7 +46,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated, login, logout, loading }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticated, login, logout, loading }}
+    >
       {children}
     </AuthContext.Provider>
   );
